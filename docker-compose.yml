@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+    container_name: BaseApp
+    ports:
+      - "3009:3009"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
