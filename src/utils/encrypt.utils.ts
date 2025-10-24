@@ -30,7 +30,7 @@ export function encryptData(data: string) {
 }
 
 // Decrypt data
-export function decryptData(encryptedData: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: "string"): string; }) {
+export function decryptData(encryptedData: any) {
   // Step 1: Base64 decode
   const decodedData = Buffer.from(encryptedData, 'base64').toString();
   // Step 2: XOR decrypt the data
