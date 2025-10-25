@@ -90,7 +90,7 @@ export class AuthController {
       const token = jwt.sign({ id: (user._id as Types.ObjectId).toString() }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
       const safeUser = user.toObject();
       const { password: _, ...userWithoutPassword } = safeUser;
-      io.emit("userOnline", (user._id as Types.ObjectId).toString());
+      
       return HandleResponse.sendSuccessResponseWithoutMessage(res, {
         token,
         user: userWithoutPassword,

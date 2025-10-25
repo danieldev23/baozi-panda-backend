@@ -5,12 +5,11 @@ const router = Router();
 const chatController = new ChatController();
 
 // router.use(verifyToken);
+router.get("/my-groups", chatController.getUserGroups);
+router.post("/group", chatController.createGroup);
+router.post("/group/message", chatController.sendGroupMessage);
 
-router.post("/group", (req, res) => chatController.createGroup(req, res));
+router.get("/group/:groupId/messages", chatController.getGroupMessages);
 
-router.post("/group/message", (req, res) => chatController.sendGroupMessage(req, res));
-
-router.get("/group/:groupId/messages", (req, res) => chatController.getGroupMessages(req, res));
-router.get("/my-groups", (req, res) => chatController.getUserGroups(req, res));
 
 export default router;

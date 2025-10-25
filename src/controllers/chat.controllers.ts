@@ -8,7 +8,8 @@ export class ChatController {
   public async createGroup(req: Request, res: Response): Promise<Response> {
     try {
       const { name, members } = req.body;
-      const userId = (req as any).user.id;
+      const userId = '68fd037d673cd3650bd98801';
+
 
       if (!name || !members || !Array.isArray(members)) {
         return HandleResponse.sendErrorResponse(req, res, "Thiếu thông tin nhóm");
@@ -73,7 +74,8 @@ export class ChatController {
   // Lấy danh sách nhóm mà user đang tham gia
   public async getUserGroups(req: Request, res: Response): Promise<Response> {
     try {
-      const userId = (req as any).user.id;
+      const userId = '68fd037d673cd3650bd98801';
+      console.log(`Fetching groups for user: ${userId}`);
       const groups = await GroupModel.find({ members: userId });
 
       return HandleResponse.sendSuccessResponseWithoutMessage(res, groups);
