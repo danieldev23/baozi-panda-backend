@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { IVocabulary } from "../interfaces/vocabulary.interfaces";
 import VocabularyModel from "../models/vocabulary.models";
 import { HandleResponse } from "../types/handle-ressponse.types";
+import { handleError } from "../utils/general.utils";
 export class VocabularyController {
 
     async getAll(req: Request, res: Response): Promise<IVocabulary[] | any> {
@@ -84,6 +85,7 @@ export class VocabularyController {
           });
           res.send(audioBuffer);
         } catch (err) {
+          console.log(`Lỗi khi gọi TTS service: ${handleError(String(err))}`);
           return HandleResponse.sendErrorResponse(req, res, `TTS generation failed. ${String(err)}`);
         }
       }
