@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import UserModel from "../models/user.models";
 import { HandleResponse } from "../types/handle-response.types";
 
-const JWT_SECRET = process.env.JWT_SECRET || "super_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET || "dangquochuydeptraivcl";
 const JWT_EXPIRES_IN = "7d";
 
 export class AuthController {
