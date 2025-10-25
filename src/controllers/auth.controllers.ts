@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { Types } from "mongoose";
 import UserModel from "../models/user.models";
 import { HandleResponse } from "../types/handle-response.types";
+import { getIO } from "../gateway/socket.gateway";
 
 const JWT_SECRET = process.env.JWT_SECRET || "dangquochuydeptraivcl";
 const JWT_EXPIRES_IN = "7d";
@@ -50,7 +52,7 @@ export class AuthController {
         createdAt: new Date(),
       });
 
-      const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+      const token = jwt.sign({ id: (user._id as Types.ObjectId).toString() }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
       const safeUser = user.toObject();
       const { password: _, ...userWithoutPassword } = safeUser;
 
@@ -67,7 +69,7 @@ export class AuthController {
   public async login(req: Request, res: Response): Promise<Response> {
     try {
       const { username, password } = req.body;
-
+      const io = getIO();
       if (!username || !password) {
         return HandleResponse.sendErrorResponse(req, res, "Thiếu thông tin đăng nhập.");
       }
@@ -85,10 +87,10 @@ export class AuthController {
         return HandleResponse.sendErrorResponse(req, res, "Mật khẩu không đúng.");
       }
 
-      const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+      const token = jwt.sign({ id: (user._id as Types.ObjectId).toString() }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
       const safeUser = user.toObject();
       const { password: _, ...userWithoutPassword } = safeUser;
-      
+      io.emit("userOnline", (user._id as Types.ObjectId).toString());
       return HandleResponse.sendSuccessResponseWithoutMessage(res, {
         token,
         user: userWithoutPassword,

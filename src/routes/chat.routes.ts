@@ -4,7 +4,7 @@ import { verifyToken } from "../middlewares/auth.middlewares";
 const router = Router();
 const chatController = new ChatController();
 
-router.use(verifyToken);
+// router.use(verifyToken);
 
 router.post("/group", (req, res) => chatController.createGroup(req, res));
 
