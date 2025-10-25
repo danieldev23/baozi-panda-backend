@@ -7,7 +7,8 @@ import { connect } from "./config/database.config";
 import morgan from "morgan";
 import { AnsiColor, colorize } from "./constants/colors.constants";
 import cors from 'cors';
-
+import { setupSocket } from "./gateway/socket.gateway";
+import http from "http";
 config();
 const app = express();
 const PORT = process.env.PORT;
@@ -17,7 +18,8 @@ connect(DB_CONNECT || "");
 // Middleware
 // app.use(cors());
 
-
+const server = http.createServer(app);
+setupSocket(server);
 // Use morgan for logging HTTP requests
 morgan.format("colored", (tokens, req: Request, res) => {
   const status = Number(tokens.status(req, res));
@@ -58,6 +60,6 @@ app.use((req: Request, res: Response) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });

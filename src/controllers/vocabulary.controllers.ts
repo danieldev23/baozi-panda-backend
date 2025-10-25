@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IVocabulary } from "../interfaces/vocabulary.interfaces";
 import VocabularyModel from "../models/vocabulary.models";
-import { HandleResponse } from "../types/handle-ressponse.types";
+import { HandleResponse } from "../types/handle-response.types";
 import { handleError } from "../utils/general.utils";
 export class VocabularyController {
 
