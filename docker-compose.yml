@@ -1,13 +1,22 @@
+version: '3.8'
+
 services:
   app:
-    build:
-      context: .
-    container_name: BaseApp
+    build: .
+    container_name: baozi-panda-backend
     ports:
       - "3009:3009"
+    env_file:
+      - .env
     volumes:
-      - .:/app
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./tsconfig.json:/app/tsconfig.json
       - /app/node_modules
-    environment:
-      - NODE_ENV=development
-    command: npm run dev
+    networks:
+      - default
+    restart: unless-stopped
+
+networks:
+  default:
+    name: baozi-panda-backend_default
