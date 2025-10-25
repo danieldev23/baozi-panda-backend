@@ -15,7 +15,7 @@ const DB_CONNECT = process.env.DATABASE_URL;
 connect(DB_CONNECT || "");
 
 // Middleware
-app.use(cors());
+// app.use(cors());
 
 
 // Use morgan for logging HTTP requests
