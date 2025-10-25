@@ -21,7 +21,7 @@ app.use(
     origin: [
       "http://localhost:3000",       // local dev
       "https://hsksimple.online",
-      "https://hsksimple.vercel.app/"         // frontend production
+      "https://hsksimple.vercel.app"         // frontend production
     ],
     credentials: true,               // cho phép gửi cookie/token qua request
     methods: ["GET", "POST", "PUT", "DELETE"],
