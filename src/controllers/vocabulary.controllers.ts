@@ -71,7 +71,6 @@ export class VocabularyController {
               volume,
             }),
           });
-          console.log(`TTS Service Response: ${response}`);
           if (!response.ok) {
             const errorText = await response.text();
             return res.status(response.status).json({ error: errorText });
