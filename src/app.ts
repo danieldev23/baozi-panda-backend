@@ -16,8 +16,16 @@ const DB_CONNECT = process.env.DATABASE_URL;
 connect(DB_CONNECT || "");
 
 // Middleware
-// app.use(cors());
-
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",       // local dev
+      "https://pandiago.vn",         // frontend production
+    ],
+    credentials: true,               // cho phép gửi cookie/token qua request
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 const server = http.createServer(app);
 setupSocket(server);
 // Use morgan for logging HTTP requests
